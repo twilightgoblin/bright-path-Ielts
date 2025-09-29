@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import LiquidEther from './LiquidEther';
 import FlowingMenu from './FlowingMenu';
-import ElectricBorder from './ElectricBorder'
+import ElectricBorder from './ElectricBorder';
 import SpotlightCard from './SpotlightCard';
 import LightRays from './LightRays';
+import StaggeredMenu from './StaggeredMenu';
 
 const App = () => {
   const demoItems = [
@@ -13,6 +14,7 @@ const App = () => {
     { link: '#', text: 'Interactive', image: 'https://picsum.photos/600/400?random=3' },
     { link: '#', text: 'AI Powered', image: 'https://picsum.photos/600/400?random=4' }
   ];
+
   const features = [
     {
       title: 'Speaking',
@@ -32,12 +34,60 @@ const App = () => {
     },
   ];
 
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
+    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' }
+  ];
 
+  // I noticed you use socialItems but it's not defined; define or remove if unused:
+  const socialItems = [
+    { label: 'Twitter', link: 'https://twitter.com', icon: 'twitter' },
+    { label: 'Facebook', link: 'https://facebook.com', icon: 'facebook' },
+    { label: 'LinkedIn', link: 'https://linkedin.com', icon: 'linkedin' },
+  ];
+
+  // State to track if menu is open for pointerEvents toggle
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="relative w-full h-full">
-      {/* Navbar */}
-      <Navbar />
+      {/* StaggeredMenu overlay */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          pointerEvents: menuOpen ? 'auto' : 'none', // only block clicks when open
+          zIndex: 9999,
+        }}
+      >
+        <StaggeredMenu
+          position="right"
+          items={menuItems}
+          socialItems={socialItems}
+          displaySocials={true}
+          displayItemNumbering={true}
+          menuButtonColor="#000"
+          openMenuButtonColor="#000"
+          changeMenuColorOnOpen={true}
+          colors={['#B19EEF', '#5227FF']}
+          logoUrl='/src/assets/brightpath-ielts.png'
+          accentColor="#5227FF"
+          onMenuOpen={() => {
+            console.log('Menu opened');
+            setMenuOpen(true);
+          }}
+          onMenuClose={() => {
+            console.log('Menu closed');
+            setMenuOpen(false);
+          }}
+          style={{ pointerEvents: 'auto' }} // allow interaction inside menu
+        />
+      </div>
 
       {/* Hero Section */}
       <div style={{ width: '100%', height: '850px', position: 'relative' }}>
@@ -102,14 +152,12 @@ const App = () => {
               Sign Up
             </button>
           </div>
-
         </div>
       </div>
 
       {/* Page Sections */}
       <div>
         {/* Features Section */}
-
         <section
           id="home"
           className="w-full min-h-screen bg-black flex flex-col items-center justify-start pt-24 px-4 md:px-20 space-y-12"
@@ -217,12 +265,6 @@ const App = () => {
           </div>
         </section>
 
-
-
-
-
-
-
         {/* Testimonials Section */}
         <section
           id="about"
@@ -265,9 +307,7 @@ const App = () => {
           </div>
         </section>
 
-
         {/* Contact Section */}
-
         <section
           id="contact"
           className="relative min-h-screen bg-black flex flex-col items-center justify-center py-32 px-8 text-center space-y-12 overflow-hidden"
@@ -306,8 +346,6 @@ const App = () => {
             </a>
           </div>
         </section>
-
-
       </div>
     </div>
   );
