@@ -310,7 +310,7 @@ const App = () => {
         {/* Contact Section */}
         <section
           id="contact"
-          className="relative bg-black flex flex-col items-center justify-center py-32 px-8 text-center space-y-12 overflow-hidden"
+          className="relative h-screen bg-black flex flex-col items-center justify-center py-32 px-8 text-center space-y-12 overflow-hidden"
         >
           {/* Light Rays Visual Effect */}
           <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
