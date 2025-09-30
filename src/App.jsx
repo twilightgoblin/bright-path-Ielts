@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
+import { useNavigate } from "react-router-dom";
 import LiquidEther from './LiquidEther';
 import FlowingMenu from './FlowingMenu';
 import ElectricBorder from './ElectricBorder';
@@ -8,47 +8,47 @@ import LightRays from './LightRays';
 import StaggeredMenu from './StaggeredMenu';
 
 const App = () => {
+  const navigate = useNavigate(); // ✅ INSIDE component
+
   const demoItems = [
-    { link: '#', text: 'Availability', image: 'https://picsum.photos/600/400?random=1' },
-    { link: '#', text: 'Reliable', image: 'https://picsum.photos/600/400?random=2' },
-    { link: '#', text: 'Interactive', image: 'https://picsum.photos/600/400?random=3' },
-    { link: '#', text: 'AI Powered', image: 'https://picsum.photos/600/400?random=4' }
+    { link: "#", text: "Availability", image: "https://picsum.photos/600/400?random=1" },
+    { link: "#", text: "Reliable", image: "https://picsum.photos/600/400?random=2" },
+    { link: "#", text: "Interactive", image: "https://picsum.photos/600/400?random=3" },
+    { link: "#", text: "AI Powered", image: "https://picsum.photos/600/400?random=4" },
   ];
 
   const features = [
     {
-      title: 'Speaking',
-      description: 'Practice real-life speaking scenarios with instant AI feedback to improve fluency and pronunciation.',
+      title: "Speaking",
+      description: "Practice real-life speaking scenarios with instant AI feedback to improve fluency and pronunciation.",
     },
     {
-      title: 'Listening',
-      description: 'Train your ears with high-quality listening exercises based on actual IELTS test formats.',
+      title: "Listening",
+      description: "Train your ears with high-quality listening exercises based on actual IELTS test formats.",
     },
     {
-      title: 'AI Interaction',
-      description: 'Engage in smart, interactive conversations with AI to get personalized tips and corrections.',
+      title: "AI Interaction",
+      description: "Engage in smart, interactive conversations with AI to get personalized tips and corrections.",
     },
     {
-      title: 'Doubts',
-      description: 'Get all your questions answered through live sessions, expert support, and 1-on-1 feedback.',
+      title: "Doubts",
+      description: "Get all your questions answered through live sessions, expert support, and 1-on-1 feedback.",
     },
   ];
 
   const menuItems = [
-    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
-    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
-    { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' }
+    { label: "Home", ariaLabel: "Go to home page", link: "/" },
+    { label: "About", ariaLabel: "Learn about us", link: "/about" },
+    { label: "Services", ariaLabel: "View our services", link: "/services" },
+    { label: "Contact", ariaLabel: "Get in touch", link: "/contact" },
   ];
 
-  // I noticed you use socialItems but it's not defined; define or remove if unused:
   const socialItems = [
-    { label: 'Twitter', link: 'https://twitter.com', icon: 'twitter' },
-    { label: 'Facebook', link: 'https://facebook.com', icon: 'facebook' },
-    { label: 'LinkedIn', link: 'https://linkedin.com', icon: 'linkedin' },
+    { label: "Twitter", link: "https://twitter.com", icon: "twitter" },
+    { label: "Facebook", link: "https://facebook.com", icon: "facebook" },
+    { label: "LinkedIn", link: "https://linkedin.com", icon: "linkedin" },
   ];
 
-  // State to track if menu is open for pointerEvents toggle
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -56,12 +56,12 @@ const App = () => {
       {/* StaggeredMenu overlay */}
       <div
         style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           left: 0,
-          width: '100vw',
-          height: '100vh',
-          pointerEvents: menuOpen ? 'auto' : 'none', // only block clicks when open
+          width: "100vw",
+          height: "100vh",
+          pointerEvents: menuOpen ? "auto" : "none", // ✅ only blocks when open
           zIndex: 9999,
         }}
       >
@@ -74,25 +74,19 @@ const App = () => {
           menuButtonColor="#000"
           openMenuButtonColor="#000"
           changeMenuColorOnOpen={true}
-          colors={['#B19EEF', '#5227FF']}
-          logoUrl='/src/assets/brightpath-ielts.png'
+          colors={["#B19EEF", "#5227FF"]}
+          logoUrl="/src/assets/brightpath-ielts.png"
           accentColor="#5227FF"
-          onMenuOpen={() => {
-            console.log('Menu opened');
-            setMenuOpen(true);
-          }}
-          onMenuClose={() => {
-            console.log('Menu closed');
-            setMenuOpen(false);
-          }}
-          style={{ pointerEvents: 'auto' }} // allow interaction inside menu
+          onMenuOpen={() => setMenuOpen(true)}
+          onMenuClose={() => setMenuOpen(false)}
+          style={{ pointerEvents: "auto" }}
         />
       </div>
 
       {/* Hero Section */}
-      <div style={{ width: '100%', height: '850px', position: 'relative' }}>
+      <div style={{ width: "100%", height: "850px", position: "relative" }}>
         <LiquidEther
-          colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+          colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
           mouseForce={20}
           cursorSize={100}
           isViscous={false}
@@ -113,47 +107,45 @@ const App = () => {
         <div
           className="flex flex-col justify-center items-center space-y-6"
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
-            pointerEvents: 'none',
+            width: "100%",
+            height: "100%",
             zIndex: 10,
           }}
         >
           <h1
             className="text-center font-rajdhani font-extrabold text-3xl sm:text-5xl md:text-6xl"
             style={{
-              background: 'linear-gradient(90deg, #5227FF, #FF9FFC, #B19EEF)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 15px rgba(82, 39, 255, 0.7), 0 0 25px rgba(255, 159, 252, 0.5), 0 0 35px rgba(177, 158, 239, 0.4)',
-              pointerEvents: 'auto',
+              background: "linear-gradient(90deg, #5227FF, #FF9FFC, #B19EEF)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              textShadow:
+                "0 0 15px rgba(82, 39, 255, 0.7), 0 0 25px rgba(255, 159, 252, 0.5), 0 0 35px rgba(177, 158, 239, 0.4)",
             }}
           >
             Welcome To <br /> BrightPath IELTS!
           </h1>
 
-          <div className="flex space-x-4 pointer-events-auto">
-            {/* Sign In Button - Glassmorphed */}
+          <div className="flex gap-4 mt-6">
             <button
-              onClick={() => console.log("Sign In clicked")}
-              className="px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/30 text-purple-500 font-semibold shadow-md hover:bg-white/20 transition-all duration-300"
+              onClick={() => navigate("/signin")}
+              className="px-6 py-3 rounded-lg bg-white/10 backdrop-blur-md border border-white/30 text-purple-500 font-semibold shadow-md hover:bg-white/20 transition-all duration-300 cursor-pointer"
             >
               Sign In
             </button>
 
-            {/* Sign Up Button - Gradient */}
             <button
-              onClick={() => console.log("Sign Up clicked")}
-              className="px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-400 text-white font-semibold hover:opacity-90 transition duration-300"
+              onClick={() => navigate("/signup")}
+              className="px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-400 text-white font-semibold hover:opacity-90 transition duration-300 cursor-pointer"
             >
               Sign Up
             </button>
           </div>
         </div>
       </div>
+
 
       {/* Page Sections */}
       <div>
